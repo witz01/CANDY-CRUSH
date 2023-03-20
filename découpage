@@ -6,7 +6,8 @@ Renvoi :
 
 Coordonnées entrées par le joueur 
 Parametre : coordonnées de deux bonbon (x et y) 
-(partir du principe que l'utilisateur donne des bonbons adjacent// voir si faire une vérification pour éviter les erreurs)    
+(partir du principe que l'utilisateur donne des bonbons adjacent// voir si faire une vérification pour éviter les erreurs)
+Renvoi : rien 
 
 
 Test vérification alignement 
