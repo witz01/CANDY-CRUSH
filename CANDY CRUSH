@@ -13,12 +13,14 @@ def init_aleatoire(size,proba):
         liste2.append(liste) 
 
     for i in range(size):
-        print(liste2[i])  
-        
+        print(liste2[i])
+    return(liste2)
 size=int(input("taille du monde "))
 proba=float(input("probabilité dapparition de vie "))
     
-print(init_aleatoire(size, proba))
+
+init_aleatoire(size, proba)
+
 
 
 
