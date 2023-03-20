@@ -1,2 +1,25 @@
+from random import random
+from random import randint
+liste=[]
+liste2=[]  
+def init_aleatoire(size,proba):   
+    for k in range(size):
+        liste=[]
+        for i in range(size):
+            if proba > random():
+                liste.append(randint(1,3))
+            else:
+                liste.append(0)
+        liste2.append(liste) 
+
+    for i in range(size):
+        print(liste2[i])  
+        
+size=int(input("taille du monde "))
+proba=float(input("probabilité dapparition de vie "))
+    
+print(init_aleatoire(size, proba))
+
+
 
 
