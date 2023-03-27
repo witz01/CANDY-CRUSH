@@ -1,7 +1,7 @@
 Création grille de départ (avec vérification de la présence d'alignement):
 Parametre : Size (entier)
 Role : Crée la grille de départ de taille Size x Size, composée de 0 , 1 , 2 , 3
-Renvoi : 
+Renvoi : Une grille
 
 
 Coordonnées entrées par le joueur 
