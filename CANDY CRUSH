@@ -1,4 +1,8 @@
+from matplotlib import pyplot as plt
+from random import random
 from random import randint
+
+
 liste=[]
 liste2=[]  
 def init_aleatoire(size):   
