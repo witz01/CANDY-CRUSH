@@ -5,13 +5,22 @@ Renvoi : Une grille
 
 
 Coordonnées entrées par le joueur 
-Parametre : coordonnées de deux bonbon (x et y) 
+Parametre : coordonnées de deux bonbon (i1 et j1 et i2 et j2) 
 (partir du principe que l'utilisateur donne des bonbons adjacent// voir si faire une vérification pour éviter les erreurs)
 Renvoi : rien 
 
 
-Test vérification alignement -->
+detecte_coordonnees_combinaison -->
+def detecte_coordonnees_combinaison(grille, i, j):
+"""
+Renvoie une liste contenant les coordonnées de tous les bonbons
+appartenant à la combinaison du bonbon (i, j).
+"""
+
+
 
 Modifaction (potentiellment séparé en trois fonctions: -Supprimer combinaisons // Faire tomber // remplir 
+
+
 
 Affichage de la grille modifié
