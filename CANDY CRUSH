@@ -36,3 +36,18 @@ def affichage_grille(grille, nb_type_bonbons):
     plt.pause(0.1)
 affichage_grille(grille, nb_type_bonbons)
 
+
+#fonction coordonnees bonbon
+def coordonnees(grille):
+    b1=[]
+    b2=[]
+    x=int(input("quel x pour le premier bonbon voulez-vous ? : "))
+    y=int(input("quel y pour le premier bonbon voulez-vous ? : "))
+    x2=int(input("quel x pour le deuxième bonbon voulez-vous ? : "))
+    y2=int(input("quel y pour le deuxième bonbon voulez-vous ? : "))
+    b1.append(x)
+    b1.append(y)
+    b2.append(x2)
+    b2.append(y2)
+    return(b1,b2)
+
