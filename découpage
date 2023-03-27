@@ -10,8 +10,8 @@ Parametre : coordonnées de deux bonbon (x et y)
 Renvoi : rien 
 
 
-Test vérification alignement 
+Test vérification alignement -->
 
 Modifaction (potentiellment séparé en trois fonctions: -Supprimer combinaisons // Faire tomber // remplir 
 
-Affichage de la grille modifié 
+Affichage de la grille modifié
