@@ -20,7 +20,8 @@ appartenant à la combinaison du bonbon (i, j).
 
 
 Modifaction (potentiellment séparé en trois fonctions: -Supprimer combinaisons // Faire tomber // remplir 
+prend en paramètre les coordonnées des bonbons de la combinaison et renvoie une grille modifiée
 
 
 
-Affichage de la grille modifié
+Affichage de la grille modifié, prend en paramètre la grille modifié et renvoie l'affichage de la grille modifié
