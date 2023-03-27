@@ -28,7 +28,7 @@ def coordonnees(grille):
 print(coordonnees(grille))
 
 #Fonction affichage:
-nb_type_bonbons = 4_
+nb_type_bonbons = 4
 def affichage_grille(grille, nb_type_bonbons):
     plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap="jet")
     plt.pause(0.1)
