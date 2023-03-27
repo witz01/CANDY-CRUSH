@@ -5,9 +5,9 @@ Renvoi : Une grille
 
 
 Coordonnées entrées par le joueur 
-Parametre : coordonnées de deux bonbon (i1 et j1 et i2 et j2) 
+Parametre : grille 
 (partir du principe que l'utilisateur donne des bonbons adjacent// voir si faire une vérification pour éviter les erreurs)
-Renvoi : rien 
+Renvoi : coordonnées de deux bonbon (i1 et j1 et i2 et j2) 
 
 
 detecte_coordonnees_combinaison -->
