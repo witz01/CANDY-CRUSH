@@ -1,4 +1,3 @@
-from random import random
 from random import randint
 liste=[]
 liste2=[]  
@@ -14,10 +13,16 @@ def init_aleatoire(size):
     return(liste2)
 size=int(input("taille du monde "))
 
-    
+
 
 init_aleatoire(size)
 
+grille=liste2
 
+def coordonnees(grille):
+    x=int(input("quel x voulez-vous ? : "))
+    y=int(input("quel y voulez-vous ? : "))
+    return(grille[x][y])
+    return(x,y)
 
-
+print(coordonnees(grille))
