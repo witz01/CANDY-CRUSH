@@ -27,3 +27,14 @@ renvoie: rien
 
 Affichage de la grille modifié, prend en paramètre la grille modifié et renvoie l'affichage de la grille modifié
 
+Algo:
+
+Affiche  grille:
+  Pour n round:
+    Joueur rentre (i,j)
+      Modification de grille 
+      Affichage
+       
+
+
+
