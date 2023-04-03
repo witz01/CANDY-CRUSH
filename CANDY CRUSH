@@ -54,4 +54,21 @@ def coordonnees(grille):
     b2.append(x2)
     b2.append(y2)
     return(b1,b2)
+    
+    
+    
+    
+    #fonction changement bonbon
+    
+def changement(grille):
+    b1=[]
+    x=coordonnees(grille)
+    c=0
+    b1=grille[x[0][0]][x[0][1]]
+    b2=grille[x[1][0]][x[1][1]]
+    c=b1
+    b1=b2
+    b2=c
+    return(b1,b2)
+print(changement(grille))    
 
