@@ -1,4 +1,95 @@
 
+
+#Algo capable de modifier la grille (manque mise en forme) 
+
+from matplotlib import pyplot as plt
+from random import randint
+liste=[]
+liste2=[]  
+#Création de grille de départ 
+def init_aleatoire(size):   
+    for k in range(size):
+        liste=[]
+        for i in range(size):
+            liste.append(randint(0,3))
+        liste2.append(liste) 
+    for i in range(size):
+        print(liste2[i])
+    return(liste2)
+size=int(input("taille du monde "))
+init_aleatoire(size)
+
+#donne un nouveau nom à la grille 
+grille=liste2
+
+#Coordonnées bonbon 1
+def coordonnees_x_1(grille):
+    x_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
+    return(x_1)   
+def coordonnees_y_1(grille):
+    y_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
+    return(y_1)   
+    
+#Coordonnées bonbon 2
+def coordonnees_x_2(grille):
+    x_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    return(x_2)   
+def coordonnees_y_2(grille):
+    y_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    return(y_2) 
+
+#Valeur bonbon 1
+def valeur_bonbon_1(grille):
+    b_1=0  
+    x=coordonnees_x_1 (grille)
+    y=coordonnees_y_1 (grille)
+    b_1=grille[x][y]
+    return(b_1)
+
+#Valeur bonbon 2
+def valeur_bonbon_2(grille):
+    b_2=0  
+    x=coordonnees_x_2 (grille)
+    y=coordonnees_y_2 (grille)
+    b_2=grille[x][y]
+    return(b_2)
+
+
+
+"""coordonnees_x_1 (grille)
+coordonnees_y_1 (grille)
+coordonnees_x_2 (grille)
+coordonnees_y_2 (grille)"""
+
+
+#Changement position bonbon 
+def changement(grille):
+    b1=0
+    b2=0
+    b1=valeur_bonbon_1(grille)
+    b2=valeur_bonbon_2(grille)
+    grille[coordonnees_x_1 (grille)][coordonnees_y_1 (grille)]=b2
+    grille[coordonnees_x_2 (grille)][coordonnees_y_2 (grille)]=b1
+    return (grille)
+
+print (changement(grille))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Algo avant modification (celui fait en cours) 
+
 from matplotlib import pyplot as plt
 from random import randint
 liste=[]
