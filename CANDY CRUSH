@@ -1,6 +1,6 @@
 
 
-#Algo capable de modifier la grille (manque mise en forme) 
+#Algo capable de modifier la grille (manque mise en forme// aussi noms des variables inversés juste problématique pour la relecture) 
 
 from matplotlib import pyplot as plt
 from random import randint
@@ -24,18 +24,18 @@ grille=liste2
 
 #Coordonnées bonbon 1
 def coordonnees_x_1(grille):
-    x_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
+    x_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
     return(x_1)   
 def coordonnees_y_1(grille):
-    y_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
+    y_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
     return(y_1)   
     
 #Coordonnées bonbon 2
 def coordonnees_x_2(grille):
-    x_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    x_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
     return(x_2)   
 def coordonnees_y_2(grille):
-    y_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    y_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
     return(y_2) 
 
 #Valeur bonbon 1
@@ -72,11 +72,16 @@ def changement(grille):
     grille[coordonnees_x_2 (grille)][coordonnees_y_2 (grille)]=b1
     return (grille)
 
+
 print (changement(grille))
 
 
 
-#fonction detecte_coordonnees_combinaison (nornalement fonctionnel)
+
+
+
+
+# fonction detecte_coordonnees_combinaison
 def detecte_coordonnees_combinaison(grille):
     v=False
     c=0
@@ -129,13 +134,22 @@ def detecte_coordonnees_combinaison(grille):
             else:
                 c+=1
                 if d<4:
-                    d+=1
-                
-    #if l==4 and c==3:
-        #return 
+                    d+=1 
     return (t)            
                 
 print (detecte_coordonnees_combinaison(grille))
+
+
+
+#test_detecte_coordonnees_combinaison: permettra de répéter le tri 
+def test_detecte_coordonnees_combinaison():
+    c=False
+    if detecte_coordonnees_combinaison(grille)==[]:
+        c=True
+    return (c)
+
+print (test_detecte_coordonnees_combinaison())
+
 
 
 
