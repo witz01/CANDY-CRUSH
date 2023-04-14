@@ -6,6 +6,8 @@ from matplotlib import pyplot as plt
 from random import randint
 liste=[]
 liste2=[]  
+
+
 #Création de grille de départ 
 def init_aleatoire(size):   
     for k in range(size):
@@ -22,65 +24,19 @@ init_aleatoire(size)
 #donne un nouveau nom à la grille 
 grille=liste2
 
-#Coordonnées bonbon 1
-def coordonnees_x_1(grille):
-    x_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
-    return(x_1)   
-def coordonnees_y_1(grille):
-    y_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
-    return(y_1)   
+
+
+def affichage_grille(grille, nb_type_bonbons):
+    plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap='jet')
+    plt.pause(0.1)
+    plt.draw()
+    plt.pause(0.1)
     
-#Coordonnées bonbon 2
-def coordonnees_x_2(grille):
-    x_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
-    return(x_2)   
-def coordonnees_y_2(grille):
-    y_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
-    return(y_2) 
-
-#Valeur bonbon 1
-def valeur_bonbon_1(grille):
-    b_1=0  
-    x=coordonnees_x_1 (grille)
-    y=coordonnees_y_1 (grille)
-    b_1=grille[x][y]
-    return(b_1)
-
-#Valeur bonbon 2
-def valeur_bonbon_2(grille):
-    b_2=0  
-    x=coordonnees_x_2 (grille)
-    y=coordonnees_y_2 (grille)
-    b_2=grille[x][y]
-    return(b_2)
 
 
 
-"""coordonnees_x_1 (grille)
-coordonnees_y_1 (grille)
-coordonnees_x_2 (grille)
-coordonnees_y_2 (grille)"""
 
 
-#Changement position bonbon 
-def changement(grille):
-    b1=0
-    b2=0
-    b1=valeur_bonbon_1(grille)
-    b2=valeur_bonbon_2(grille)
-    grille[coordonnees_x_1 (grille)][coordonnees_y_1 (grille)]=b2
-    grille[coordonnees_x_2 (grille)][coordonnees_y_2 (grille)]=b1
-    return (grille)
-
-print (changement(grille))
-
-
-
-#grille=[[1, 2, 3, 4, 1], [4, 4, 4, 2, 0], [1, 70, 9, 9, 5], [10, 4, 61, 60, 5], [0, 90, 96, 96, 1]] simplement pour test (pas utile)
-
-
-
-# fonction detecte_coordonnees_combinaison
 def detecte_coordonnees_combinaison(grille):
     v=False
     c=0
@@ -135,8 +91,7 @@ def detecte_coordonnees_combinaison(grille):
                 if d<4:
                     d+=1 
     return (t)            
-                
-print (detecte_coordonnees_combinaison(grille))
+
 
 
 
@@ -147,9 +102,7 @@ def test_detecte_coordonnees_combinaison():
         c=True
     return (c)
 
-print (test_detecte_coordonnees_combinaison())
-
-
+#Fonction effectuant les modifications sur la grille 
 def suppligne (grille): 
     c=detecte_coordonnees_combinaison(grille)
     y_1=c[0]
@@ -199,13 +152,79 @@ def suppligne (grille):
         grille [y_1][x_1]= r_1
         grille [y_2][x_2]= r_2
         grille [y_3][x_3]= r_3
-    
-    
-    
-    
     return (grille)
 
-print (suppligne (grille))
+
+#Ensemble de fonction pour action utilisateur 
+#Coordonnées bonbon 1
+def coordonnees_x_1(grille):
+    x_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
+    return(x_1)   
+def coordonnees_y_1(grille):
+    y_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
+    return(y_1)   
+    
+#Coordonnées bonbon 2
+def coordonnees_x_2(grille):
+    x_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    return(x_2)   
+def coordonnees_y_2(grille):
+    y_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
+    return(y_2) 
+
+#Valeur bonbon 1
+def valeur_bonbon_1(grille):
+    b_1=0  
+    x=coordonnees_x_1 (grille)
+    y=coordonnees_y_1 (grille)
+    b_1=grille[x][y]
+    return(b_1)
+
+#Valeur bonbon 2
+def valeur_bonbon_2(grille):
+    b_2=0  
+    x=coordonnees_x_2 (grille)
+    y=coordonnees_y_2 (grille)
+    b_2=grille[x][y]
+    return(b_2)
+
+
+
+"""coordonnees_x_1 (grille)
+coordonnees_y_1 (grille)
+coordonnees_x_2 (grille)
+coordonnees_y_2 (grille)"""
+
+
+#Changement position bonbon 
+def changement(grille):
+    b1=0
+    b2=0
+    b1=valeur_bonbon_1(grille)
+    b2=valeur_bonbon_2(grille)
+    grille[coordonnees_x_1 (grille)][coordonnees_y_1 (grille)]=b2
+    grille[coordonnees_x_2 (grille)][coordonnees_y_2 (grille)]=b1
+    return (grille)
+
+
+
+
+#Exécution de l'algo 
+
+
+#Phase de création de grille 
+while test_detecte_coordonnees_combinaison()==False:
+    grille=suppligne (grille)
+
+
+#utilisation de la grille pour utilisateur 
+
+for i in range (2):
+    print (affichage_grille(grille, 4))
+    grille=changement(grille)
+    while test_detecte_coordonnees_combinaison()==False:
+        grille=suppligne (grille)
+print (affichage_grille(grille, 4))
 
 
 
