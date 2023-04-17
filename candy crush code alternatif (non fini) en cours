@@ -1,0 +1,98 @@
+#Algo capable de modifier la grille (manque mise en forme// aussi noms des variables inversés juste problématique pour la relecture) 
+
+from matplotlib import pyplot as plt
+from random import randint
+
+liste2=[]  
+
+
+#Création de grille de départ 
+def init_aleatoire(size):   
+    for k in range(size):
+        liste=[]
+        for i in range(size):
+            liste.append(randint(0,3))
+        liste2.append(liste) 
+    for i in range(size):
+        print(liste2[i])
+    return(liste2)
+size=int(input("taille du monde "))
+init_aleatoire(size)
+
+#donne un nouveau nom à la grille 
+grille=liste2
+
+def coordonnees(): 
+    b1_x = int(input("Quel est la colonne de votre bonbon ?"))
+    b1_y = int(input("Quelle est la ligne de votre bonbon ?"))
+    b2_x = int(input("Quel est la colonne de votre bonbon ?"))
+    b2_y = int(input("Quelle est la ligne de votre bonbon ?"))
+    liste_b1 = [b1_y,b1_x]
+    liste_b2 = [b2_y, b2_x]
+    return [liste_b1,liste_b2]
+
+
+
+
+
+def affichage_grille(grille, nb_type_bonbons = 4):
+    plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap='jet')
+    plt.pause(0.1)
+    plt.draw()
+    plt.pause(0.1)
+
+def changement_grille(grille,liste):
+    bonbon1 = grille[liste[0][0]][liste[0][1]]
+    bonbon2 = grille[liste[1][0]][liste[1][1]]
+    temp = bonbon1
+    grille[liste[0][0]][liste[0][1]] = bonbon2
+    grille[liste[1][0]][liste[1][1]] = temp
+    
+    return grille
+   
+
+def detecte_coordonnees(liste,grille):
+    liste_bonbons = []
+    ligne =[]
+    for ligne in range(len(grille)):
+         for colonne in range(len(grille[0])):
+             if colonne > 1 and grille[ligne][colonne] == grille[ligne][colonne - 1] == grille[ligne][colonne -2]: #Vérification des combinaisons en horizontal
+                 liste_bonbons.append([ligne, colonne]) 
+                 liste_bonbons.append([ligne, colonne -1])
+                 liste_bonbons.append([ligne, colonne -2])
+             if ligne > 1 and grille[ligne][colonne] == grille[ligne -1][colonne] == grille[ligne - 2][colonne]: # Vérification des combinaisons en vertical
+                 liste_bonbons.append([ligne, colonne]) 
+                 liste_bonbons.append([ligne - 1, colonne])
+                 liste_bonbons.append([ligne - 2, colonne])
+    return liste_bonbons
+
+
+def supp_ligne(liste_bonbons,grille):
+    for i in range(len(liste_bonbons)):
+        grille[liste_bonbons[i][0]][liste_bonbons[i][1]] = -1
+    return grille
+
+def remplacer_bonbons(grille):
+    for ligne in range(size):
+        for colonne in range(size):
+            if grille[ligne][colonne] == -1:
+            i = 0
+                while grille[ligne +i][colonne] == -1:
+                    i = i +1
+                grille[ligne][colonne] = grille[ligne -1][colonne]
+    return grille
+'''
+liste = coordonnees()
+liste_bonbons = detecte_coordonnees(liste, grille)
+'''
+
+affichage_grille(grille, 4)
+liste = coordonnees()
+changement_grille(grille, liste)
+liste_bonbons = detecte_coordonnees(liste, grille)
+affichage_grille(grille, 4)
+supp_ligne(liste_bonbons, grille)
+remplacer_bonbons(grille)
+affichage_grille(grille, 4)
+
+
