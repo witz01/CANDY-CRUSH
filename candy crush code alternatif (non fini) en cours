@@ -1,5 +1,3 @@
-#Algo capable de modifier la grille (manque mise en forme// aussi noms des variables inversés juste problématique pour la relecture) 
-
 from matplotlib import pyplot as plt
 from random import randint
 
@@ -73,26 +71,52 @@ def supp_ligne(liste_bonbons,grille):
     return grille
 
 def remplacer_bonbons(grille):
-    for ligne in range(size):
+    for ligne in range(size +1):
         for colonne in range(size):
-            if grille[ligne][colonne] == -1:
             i = 0
-                while grille[ligne +i][colonne] == -1:
+            if 0 < ligne < size -1 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] != -1:
+                
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1 :
+                    grille[ligne][colonne + i] = grille[ligne -1][colonne + i]
                     i = i +1
-                grille[ligne][colonne] = grille[ligne -1][colonne]
+            elif ligne == 0 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] != -1:
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1:
+                    grille[ligne][colonne + i] = randint(0,3)
+                    i = i +1
+            elif ligne == size - 1 and grille[ligne][colonne] == -1 :
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1:
+                     grille[ligne][colonne + i] = grille[ligne -1][colonne + i]
+                     i = i +1
+                
+            elif 2<ligne < size - 2 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                while i<3 and ligne + i < size - 1 and grille[ligne + i][colonne] == -1 :
+                    grille[ligne + i][colonne] = grille[ligne -3 + i][colonne]
+                    i = i+1
+            elif ligne == 2 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                while i<3 and ligne + i +1  < size - 1 and grille[ligne + i + 1][colonne] == -1 :
+                    grille[ligne + i + 1][colonne] = grille[ligne -3 + i + 1][colonne]
+                    i = i+1
+            elif ligne == 1 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne + 1  ][colonne] = randint(0,3)
+                while i<3 and ligne + i + 2  < size - 1 and grille[ligne + i + 2][colonne] == -1 :
+                    grille[ligne + i + 2][colonne] = grille[ligne -3 + i + 2][colonne]
+                    i = i+1
+            elif ligne == 0 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne + 1][colonne] = randint(0,3)
+                grille[ligne + 2][colonne] = randint(0,3)
+            
     return grille
-'''
-liste = coordonnees()
-liste_bonbons = detecte_coordonnees(liste, grille)
-'''
-
-affichage_grille(grille, 4)
-liste = coordonnees()
-changement_grille(grille, liste)
-liste_bonbons = detecte_coordonnees(liste, grille)
-affichage_grille(grille, 4)
-supp_ligne(liste_bonbons, grille)
-remplacer_bonbons(grille)
-affichage_grille(grille, 4)
 
 
+for i in range (10):
+    affichage_grille(grille, 4)
+    liste = coordonnees()
+    changement_grille(grille, liste)
+    liste_bonbons = detecte_coordonnees(liste, grille)
+    affichage_grille(grille, 4)
+    supp_ligne(liste_bonbons, grille)
+    remplacer_bonbons(grille)
+    affichage_grille(grille, 4)
