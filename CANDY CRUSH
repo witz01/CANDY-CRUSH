@@ -1,10 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 24 10:03:32 2023
 
-
-#Algo capable de modifier la grille (manque mise en forme// aussi noms des variables inversés juste problématique pour la relecture) 
+@author: mthibault
+"""
 
 from matplotlib import pyplot as plt
 from random import randint
-liste=[]
+
 liste2=[]  
 
 
@@ -24,308 +28,117 @@ init_aleatoire(size)
 #donne un nouveau nom à la grille 
 grille=liste2
 
+def coordonnees(): 
+    b1_x = int(input("Quel est la colonne de votre bonbon ?"))
+    b1_y = int(input("Quelle est la ligne de votre bonbon ?"))
+    b2_x = int(input("Quel est la colonne de votre bonbon ?"))
+    b2_y = int(input("Quelle est la ligne de votre bonbon ?"))
+    liste_b1 = [b1_y,b1_x]
+    liste_b2 = [b2_y, b2_x]
+    return [liste_b1,liste_b2]
+
+def tri_grille(grille):
+   for ligne in range(len(grille)):
+        for colonne in range(len(grille[0])):
+            if colonne > 1 and grille[ligne][colonne] == grille[ligne][colonne - 1] == grille[ligne][colonne -2]: #Vérification des combinaisons en horizontal
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne][colonne-1] = randint(0,3)
+                grille[ligne][colonne-2] = randint(0,3)
+            if ligne > 1 and grille[ligne][colonne] == grille[ligne -1][colonne] == grille[ligne - 2][colonne]: # Vérification des combinaisons en vertical
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne-1][colonne] = randint(0,3)
+                grille[ligne-28][colonne] = randint(0,3)
+   return grille
+            
 
 
-def affichage_grille(grille, nb_type_bonbons):
+
+
+def affichage_grille(grille, nb_type_bonbons = 4):
     plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap='jet')
     plt.pause(0.1)
     plt.draw()
     plt.pause(0.1)
+
+def changement_grille(grille,liste):
+    bonbon1 = grille[liste[0][0]][liste[0][1]]
+    bonbon2 = grille[liste[1][0]][liste[1][1]]
+    temp = bonbon1
+    grille[liste[0][0]][liste[0][1]] = bonbon2
+    grille[liste[1][0]][liste[1][1]] = temp
     
+    return grille
+   
+
+def detecte_coordonnees(liste,grille):
+    liste_bonbons = []
+    ligne =[]
+    for ligne in range(len(grille)):
+         for colonne in range(len(grille[0])):
+             if colonne > 1 and grille[ligne][colonne] == grille[ligne][colonne - 1] == grille[ligne][colonne -2]: #Vérification des combinaisons en horizontal
+                 liste_bonbons.append([ligne, colonne]) 
+                 liste_bonbons.append([ligne, colonne -1])
+                 liste_bonbons.append([ligne, colonne -2])
+             if ligne > 1 and grille[ligne][colonne] == grille[ligne -1][colonne] == grille[ligne - 2][colonne]: # Vérification des combinaisons en vertical
+                 liste_bonbons.append([ligne, colonne]) 
+                 liste_bonbons.append([ligne - 1, colonne])
+                 liste_bonbons.append([ligne - 2, colonne])
+    return liste_bonbons
 
 
+def supp_ligne(liste_bonbons,grille):
+    for i in range(len(liste_bonbons)):
+        grille[liste_bonbons[i][0]][liste_bonbons[i][1]] = -1
+    return grille
 
-
-
-def detecte_coordonnees_combinaison(grille):
-    v=False
-    c=0
-    l=-1
-    i=-1
-    while v==False and l<4:
-        l+=1
-        c=0
-        d=0
-        t=[]
-        if i<2:
-            i+=1
-        while v==False and c<len (grille)-2 :
-            if grille [l][c]==grille [l][c+1]==grille [l][c+2]:
-                v=True
-                t.append (l)
-                t.append (c)
-                t.append (l)
-                t.append (c+1)
-                t.append (l)
-                t.append (c+2)
-            elif grille [i][d]==grille [i+1][d]==grille [i+2][d]:
-                v=True
-                t.append (i)
-                t.append (d)
-                t.append (i+1)
-                t.append (d)
-                t.append (i+2)
-                t.append (d)
-            elif grille [i][3]==grille [i+1][3]==grille [i+2][3]:
-                v=True
-                c=3
-                t.append (i)
-                t.append (c)
-                t.append (i+1)
-                t.append (c)
-                t.append (i+2)
-                t.append (c)
+def remplacer_bonbons(grille):
+    for ligne in range(size +1):
+        for colonne in range(size):
+            i = 0
+            if 0 < ligne < size -1 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] != -1:
                 
-            elif grille [i][4]==grille [i+1][4]==grille [i+2][4]:
-                v=True
-                c=4
-                t.append (i)
-                t.append (c)
-                t.append (i+1)
-                t.append (c)
-                t.append (i+2)
-                t.append (c)
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1 :
+                    grille[ligne][colonne + i] = grille[ligne -1][colonne + i]
+                    i = i +1
+            elif ligne == 0 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] != -1:
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1:
+                    grille[ligne][colonne + i] = randint(0,3)
+                    i = i +1
+            elif ligne == size - 1 and grille[ligne][colonne] == -1 :
+                while i<3 and colonne + i < size - 1 and grille[ligne][colonne +i] == -1:
+                     grille[ligne][colonne + i] = grille[ligne -1][colonne + i]
+                     i = i +1
+                
+            elif 2<ligne < size - 2 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                while i<3 and ligne + i < size - 1 and grille[ligne + i][colonne] == -1 :
+                    grille[ligne + i][colonne] = grille[ligne -3 + i][colonne]
+                    i = i+1
+            elif ligne == 2 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                while i<3 and ligne + i +1  < size - 1 and grille[ligne + i + 1][colonne] == -1 :
+                    grille[ligne + i + 1][colonne] = grille[ligne -3 + i + 1][colonne]
+                    i = i+1
+            elif ligne == 1 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne + 1  ][colonne] = randint(0,3)
+                while i<3 and ligne + i + 2  < size - 1 and grille[ligne + i + 2][colonne] == -1 :
+                    grille[ligne + i + 2][colonne] = grille[ligne -3 + i + 2][colonne]
+                    i = i+1
+            elif ligne == 0 and grille[ligne][colonne] == -1 and grille[ligne + 1][colonne] == -1:
+                grille[ligne][colonne] = randint(0,3)
+                grille[ligne + 1][colonne] = randint(0,3)
+                grille[ligne + 2][colonne] = randint(0,3)
             
-            else:
-                c+=1
-                if d<4:
-                    d+=1 
-    return (t)            
-
-
-
-
-#test_detecte_coordonnees_combinaison: permettra de répéter le tri 
-def test_detecte_coordonnees_combinaison():
-    c=False
-    if detecte_coordonnees_combinaison(grille)==[]:
-        c=True
-    return (c)
-
-#Fonction effectuant les modifications sur la grille 
-def suppligne (grille): 
-    c=detecte_coordonnees_combinaison(grille)
-    y_1=c[0]
-    x_1=c[1]
-    y_2=c[2]
-    x_2=c[3]
-    y_3=c[4]
-    x_3=c[5]
-    c_1=y_1
-    c_2=y_2
-    c_3=y_3
-    j_1=y_1+1
-    j_2=y_2+1
-    j_3=y_3+1
-     
-    if x_1!=x_2!=x_3:
-        while c_1>0 and c_2>0 and c_3>0:
-            c_1=c_1-1
-            c_2=c_2-1
-            c_3=c_3-1
-            j_1=j_1-1
-            j_2=j_2-1
-            j_3=j_3-1
-            grille [j_1][x_1]= grille [c_1][x_1]
-            grille [j_2][x_2]= grille [c_2][x_2]
-            grille [j_3][x_3]= grille [c_3][x_3]
-        
-        r_1=0
-        r_2=0
-        r_3=0
-        r_1=(randint(0,3))
-        r_2=(randint(0,3))
-        r_3=(randint(0,3))
-
-        grille [c_1][x_1]= r_1
-        grille [c_2][x_2]= r_2
-        grille [c_3][x_3]= r_3
-    
-    else:
-        r_1=0
-        r_2=0
-        r_3=0
-        r_1=(randint(0,3))
-        r_2=(randint(0,3))
-        r_3=(randint(0,3))
-
-        grille [y_1][x_1]= r_1
-        grille [y_2][x_2]= r_2
-        grille [y_3][x_3]= r_3
-    return (grille)
-
-
-#Ensemble de fonction pour action utilisateur 
-#Coordonnées bonbon 1
-def coordonnees_x_1(grille):
-    x_1=int(input("quel y voulez-vous, pour un bonbon de votre choix ? : "))
-    return(x_1)   
-def coordonnees_y_1(grille):
-    y_1=int(input("quel x voulez-vous, pour un bonbon de votre choix ? : "))
-    return(y_1)   
-    
-#Coordonnées bonbon 2
-def coordonnees_x_2(grille):
-    x_2=int(input("quel y voulez-vous, pour un deuxième bonbon de votre choix ? : "))
-    return(x_2)   
-def coordonnees_y_2(grille):
-    y_2=int(input("quel x voulez-vous, pour un deuxième bonbon de votre choix ? : "))
-    return(y_2) 
-
-#Valeur bonbon 1
-def valeur_bonbon_1(grille):
-    b_1=0  
-    x=coordonnees_x_1 (grille)
-    y=coordonnees_y_1 (grille)
-    b_1=grille[x][y]
-    return(b_1)
-
-#Valeur bonbon 2
-def valeur_bonbon_2(grille):
-    b_2=0  
-    x=coordonnees_x_2 (grille)
-    y=coordonnees_y_2 (grille)
-    b_2=grille[x][y]
-    return(b_2)
-
-
-
-"""coordonnees_x_1 (grille)
-coordonnees_y_1 (grille)
-coordonnees_x_2 (grille)
-coordonnees_y_2 (grille)"""
-
-
-#Changement position bonbon 
-def changement(grille):
-    b1=0
-    b2=0
-    b1=valeur_bonbon_1(grille)
-    b2=valeur_bonbon_2(grille)
-    grille[coordonnees_x_1 (grille)][coordonnees_y_1 (grille)]=b2
-    grille[coordonnees_x_2 (grille)][coordonnees_y_2 (grille)]=b1
-    return (grille)
-
-
-
-
-#Exécution de l'algo 
-
-
-#Phase de création de grille 
-while test_detecte_coordonnees_combinaison()==False:
-    grille=suppligne (grille)
-
-
-#utilisation de la grille pour utilisateur 
-
-for i in range (2):
-    print (affichage_grille(grille, 4))
-    grille=changement(grille)
-    while test_detecte_coordonnees_combinaison()==False:
-        grille=suppligne (grille)
-print (affichage_grille(grille, 4))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Algo avant modification (celui fait en cours) 
-
-from matplotlib import pyplot as plt
-from random import randint
-liste=[]
-liste2=[]  
-def init_aleatoire(size):   
-    for k in range(size):
-        liste=[]
-        for i in range(size):
-            liste.append(randint(0,3))
-        liste2.append(liste) 
-    for i in range(size):
-        print(liste2[i])
-    return(liste2)
-size=int(input("taille du monde "))
-
-
-
-init_aleatoire(size)
-
-grille=liste2
-
-#Coordonnées bonbon 1
-def coordonnees1(grille):
-    b1=[]  
-    x=int(input("quel x voulez-vous ? : "))
-    y=int(input("quel y voulez-vous ? : "))
-    b1.append(x)
-    b1.append(y)
-    return(b1)
-
-#Coordonnées bonbon 2
-def coordonees2(grille):
-    b2=[]
-    z=int(input("quel z voulez-vous ? : "))
-    p=int(input("quel p voulez-vous ? : "))
-    b2.append(z)
-    b2.append(p)
-    return(b2)
-
-
-#Changement position bonbon 
-def changement(grille):
-    b1=[]
-    b2=[]
-    c=[]
-    b1=coordonnees1(grille)
-    b2=coordonees2(grille)
-    c=b1
-    b1=b2
-    b2=c
-    return(b1,b2)
-
-
-
-#Fonction affichage:
-nb_type_bonbons = 4
-def affichage_grille(grille, nb_type_bonbons):
-    plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap="jet")
-    plt.pause(0.1)
-    plt.draw()
-    plt.pause(0.1)
-affichage_grille(grille, nb_type_bonbons)
-
+    return grille
+
+
+for i in range (10):
+    tri_grille(grille)
+    affichage_grille(grille, 4)
+    liste = coordonnees()
+    changement_grille(grille, liste)
+    liste_bonbons = detecte_coordonnees(liste, grille)
+    affichage_grille(grille, 4)
+    supp_ligne(liste_bonbons, grille)
+    remplacer_bonbons(grille)
+    affichage_grille(grille, 4)
